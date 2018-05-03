@@ -1,6 +1,8 @@
 [submodule "hangoutsbot"]
 	path = hangoutsbot
 	url = https://github.com/exocen/hangoutsbot
+	branch = master
 [submodule "OpenVPN-install"]
 	path = OpenVPN-install
 	url = https://github.com/exocen/OpenVPN-install
+	branch = master
