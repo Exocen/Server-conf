@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yaourt -Sy nginx-mainline certbot-nginx --noconfirm
+pikaur -Sy nginx-mainline certbot-nginx --noconfirm
 sudo /bin/cp -fr html2 /usr/share/nginx/html2
 sudo mkdir -p /etc/nginx/sites-enabled/
 sudo /bin/cp -f nginx.conf /etc/nginx/
