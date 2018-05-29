@@ -1,7 +1,8 @@
 #!/bin/bash
 
 sudo hostnamectl set-hostname HOSTNAME
-pikaur -Sy postfix python-postfix-policyd-spf opendkim --noconfirm
+pikaur -Sy
+pikaur -S postfix python-postfix-policyd-spf opendkim --noconfirm
 sudo /bin/cp main.cf /etc/postfix/main.cf -f
 sudo /bin/cp master.cf /etc/postfix/master.cf -f
 sudo postalias /etc/postfix/aliases
