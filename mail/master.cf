@@ -142,3 +142,7 @@ submission inet n       -       n       -       -       smtpd
 	   -o smtpd_sasl_path=smtpd
 	   -o cyrus_sasl_config_path=/etc/sasl2
 	   -o smtpd_milters=inet:127.0.0.1:8891
+smtp      inet  n       -       n       -       -       smtpd
+  -o content_filter=spamassassin
+spamassassin unix -     n       n       -       -       pipe
+  flags=R user=spamd argv=/usr/bin/vendor_perl/spamc -e /usr/bin/sendmail -oi -f ${sender} ${recipient}
