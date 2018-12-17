@@ -1,4 +1,4 @@
-# redirection http vers https
+# http to https redirection
 server {
 	listen 80;
 	listen [::]:80;
