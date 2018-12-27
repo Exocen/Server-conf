@@ -30,11 +30,11 @@ smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 # information on enabling SSL in the smtp client.
 
 smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
-myhostname = exocen.com
+myhostname = HOSTNAME
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 myorigin = /etc/mailname
-mydestination = exocen.com, localhost.localdomain, localhost
+mydestination = HOSTNAME, localhost.localdomain, localhost
 relayhost = 
 mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
 mailbox_size_limit = 0
@@ -44,9 +44,9 @@ inet_protocols = all
 
 smtp_tls_note_starttls_offer = yes
 smtpd_tls_security_level = may
-smtpd_tls_cert_file = /etc/letsencrypt/live/exocen.com/fullchain.pem
-smtpd_tls_key_file = /etc/letsencrypt/live/exocen.com/privkey.pem
-smtpd_tls_CAfile = /etc/letsencrypt/live/exocen.com/chain.pem
+smtpd_tls_cert_file = /etc/letsencrypt/live/HOSTNAME/fullchain.pem
+smtpd_tls_key_file = /etc/letsencrypt/live/HOSTNAME/privkey.pem
+smtpd_tls_CAfile = /etc/letsencrypt/live/HOSTNAME/chain.pem
 virtual_alias_maps = hash:/etc/postfix/virtual
 policyd-spf_time_limit = 3600
 smtpd_recipient_restrictions = reject_unauth_destination, check_policy_service unix:private/policyd-spf
