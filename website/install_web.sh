@@ -9,6 +9,8 @@ echo 'deb http://nginx.org/packages/mainline/debian/ stretch nginx' | sudo tee -
 echo 'deb-src http://nginx.org/packages/mainline/debian/ stretch nginx' | sudo tee -a /etc/apt/sources.list
 sudo apt update
 sudo apt install nginx
+
+# all
 sudo /bin/cp -fr html2 /usr/share/nginx/html2
 sudo mkdir -p /etc/nginx/sites-enabled/
 sudo /bin/cp -f nginx.conf /etc/nginx/
