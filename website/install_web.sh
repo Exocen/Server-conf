@@ -5,6 +5,7 @@
 # debian
 wget https://dl.eff.org/certbot-auto
 chmod a+x certbot-auto
+sudo mv certbot-auto /usr/local/bin/certbot-auto
 echo 'deb http://nginx.org/packages/mainline/debian/ stretch nginx' | sudo tee -a /etc/apt/sources.list
 echo 'deb-src http://nginx.org/packages/mainline/debian/ stretch nginx' | sudo tee -a /etc/apt/sources.list
 sudo apt update
