@@ -1,4 +1,4 @@
-# Server-conf
+### Server-conf
 A Web/Mail server config sample
 
 ````
