@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # install nginx
-# sudo rm /etc/nginx/site-enabled/default
-# ln -s /etc/nginx/site-enabled/default $HOME/default
+# sudo rm /etc/nginx/sites-enabled/default
+# sudo ln -s $HOME/default /etc/nginx/sites-enabled/default
 # cd $HOME && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 # add to cron
 
