@@ -7,14 +7,16 @@ function install(){
     sudo rm /etc/nginx/sites-enabled/default
     sudo ln -s $HOME/default /etc/nginx/sites-enabled/default
 }
+
 # add to cron
 
+LOCAL=`dirname "$(readlink -f "$0")"`
 LOG_DIR="$HOME/reverse_proxy_log"
 if [ $# -eq 1 ]
 then
     mkdir -p $LOG_DIR
     {
-        cp default /tmp/default
+        cp $LOCAL/default /tmp/default
         IP=`curl ipinfo.io/ip`
         sed -i 's/DESTINATION/'$IP'/g' /tmp/default
         scp /tmp/default $1:"default"
