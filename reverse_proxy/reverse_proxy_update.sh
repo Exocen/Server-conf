@@ -4,6 +4,7 @@
 # @hourly path domain.com
 
 LOG_DIR="$HOME/reverse_proxy_log"
+LOCAL=`dirname "$(readlink -f "$0")"`
 
 if [ $# -eq 1 ]
 then
