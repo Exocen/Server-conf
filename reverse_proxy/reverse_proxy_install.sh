@@ -8,8 +8,10 @@ function install(){
     sudo rm /etc/nginx/sites-enabled/default
     sudo ln -s $HOME/default /etc/nginx/sites-enabled/default
 }
+
 # add to cron
 
+LOCAL=`dirname "$(readlink -f "$0")"`
 LOG_DIR="$HOME/reverse_proxy_log"
 if [ $# -eq 1 ]
 then
