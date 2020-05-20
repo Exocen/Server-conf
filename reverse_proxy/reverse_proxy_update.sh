@@ -10,14 +10,20 @@ if [ $# -eq 1 ]
 then
     mkdir -p $LOG_DIR
     {
+        rm /tmp/default
         cp $LOCAL/nginx_default /tmp/default
-        IP=`curl ipinfo.io/ip`
+        IP=`curl -s ipinfo.io/ip`
         sed -i 's/DESTINATION/'$IP'/g' /tmp/default
-        scp -q /tmp/default $1:"default"
+        DIFF=`diff -q /tmp/default  <(ssh $1 cat default)`
+        if [ "$DIFF" != "" ]; then
+            scp -q /tmp/default $1:"default"
+            ssh $1 sudo systemctl restart nginx
+        else
+            echo "Ip unchanged"
+        fi
         ssh $1 sudo certbot-auto renew --nginx -n --agree-tos --register-unsafely-without-email
-        ssh $1 sudo systemctl reload nginx
     } 2>$LOG_DIR/reverse.err 1>$LOG_DIR/reverse.log
-fi
+        fi
 
 # Local Variables:
 # mode: Shell-script
