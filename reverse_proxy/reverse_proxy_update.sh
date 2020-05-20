@@ -12,9 +12,9 @@ then
         cp $LOCAL/nginx_default /tmp/default
         IP=`curl ipinfo.io/ip`
         sed -i 's/DESTINATION/'$IP'/g' /tmp/default
-        scp /tmp/default $1:"default"
+        scp -q /tmp/default $1:"default"
         ssh $1 sudo certbot-auto renew --nginx -n --agree-tos --register-unsafely-without-email
-        ssh $1 sudo systemctl restart nginx
+        ssh $1 sudo systemctl reload nginx
     } 2>$LOG_DIR/reverse.err 1>$LOG_DIR/reverse.log
 fi
 
