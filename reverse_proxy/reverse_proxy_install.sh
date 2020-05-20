@@ -3,10 +3,15 @@
 LOCAL=`dirname "$(readlink -f "$0")"`
 # install nginx
 function install(){
-    cd $HOME && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
-    ./certbot-auto
+    cd $HOME && wget https://dl.eff.org/certbot-auto
+    certbot_dir="/usr/local/bin/"
+    certbot_name="certbot-auto"
+    sudo chown root $HOME/certbot-auto
+    sudo chmod 0755 $HOME/certbot-auto
+    sudo mv $HOME/certbot-auto $certbot_dir
+    ./$certbot_dir/certbot-auto
     sudo rm /etc/nginx/sites-enabled/default
-    sudo ln -s $HOME/default /etc/nginx/sites-enabled/default
+    sudo ln -s $HOME/default /etc/nginx/conf.d/default.conf
 }
 
 # add to cron
