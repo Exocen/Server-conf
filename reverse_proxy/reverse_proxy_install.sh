@@ -9,8 +9,8 @@ function install(){
     sudo chown root $HOME/$certbot_name
     sudo chmod 0755 $HOME/$certbot_name
     sudo mv $HOME/$certbot_name $certbot_dir
-    sudo ./$certbot_dir/$certbot_name --nginx -d $1
     # get certifs
+    sudo ./$certbot_dir/$certbot_name -d $1
     sudo rm /etc/nginx/conf.d/default.conf
     sudo ln -s $HOME/default /etc/nginx/conf.d/default.conf
 }
