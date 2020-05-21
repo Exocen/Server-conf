@@ -5,18 +5,19 @@
 
 LOG_DIR="$HOME/reverse_proxy_log"
 LOCAL=`dirname "$(readlink -f "$0")"`
+TMP="/tmp/default.conf"
 
 if [ $# -eq 1 ]
 then
     mkdir -p $LOG_DIR
     {
-        rm /tmp/default
-        cp $LOCAL/nginx_default /tmp/default
+        rm $TMP
+        cp $LOCAL/nginx_default $TMP
         IP=`curl -s ipinfo.io/ip`
-        sed -i 's/DESTINATION/'$IP'/g' /tmp/default
-        DIFF=`diff -q /tmp/default  <(ssh $1 cat default)`
+        sed -i 's/DESTINATION/'$IP'/g' $TMP
+        DIFF=`diff -q /tmp/default  <(ssh $1 cat default.conf)`
         if [ "$DIFF" != "" ]; then
-            scp -q /tmp/default $1:"default"
+            scp -q $TMP $1:"default.conf"
             ssh $1 sudo systemctl restart nginx
         else
             echo "Ip unchanged"

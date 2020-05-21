@@ -9,6 +9,7 @@ function nginx_install(){
     fi
     if [ "$OS" = "buster" ]; then
         # install nginx
+        #TODO NO REPEAT
         echo 'deb http://nginx.org/packages/mainline/debian/ buster nginx' | sudo tee -a /etc/apt/sources.list
         echo 'deb-src http://nginx.org/packages/mainline/debian/ buster nginx' | sudo tee -a /etc/apt/sources.list
         sudo apt update
