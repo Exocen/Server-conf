@@ -1,28 +1,42 @@
 #!/bin/bash
 
+certbot_dir="/usr/bin/"
+certbot_name="certbot-auto"
+OS="NONE"
 LOCAL=`dirname "$(readlink -f "$0")"`
 
 function nginx_install(){
-    OS="NONE"
     if  [ -f /etc/os-release ]; then
         OS=`cat /etc/os-release | grep VERSION= | sed 's/^.*=//'`
     fi
     if [ "$OS" = "buster" ]; then
         # install nginx
-        #TODO NO REPEAT
-        echo 'deb http://nginx.org/packages/mainline/debian/ buster nginx' | sudo tee -a /etc/apt/sources.list
-        echo 'deb-src http://nginx.org/packages/mainline/debian/ buster nginx' | sudo tee -a /etc/apt/sources.list
+        sudo wget https://nginx.org/keys/nginx_signing.key
+        sudo apt-key add nginx_signing.key
+        sudo rm nginx_signing.key
+        add_ppa 'deb http://nginx.org/packages/mainline/debian/ $OS nginx'
+        add_ppa 'deb-src http://nginx.org/packages/mainline/debian/ $OS nginx'
         sudo apt update
-        sudo apt intall nginx
+        sudo apt install nginx
     fi
+}
 
+add_ppa() {
+  for i in "$@"; do
+    grep -h "^deb.*$i" /etc/apt/sources.list > /dev/null 2>&1
+    if [ $? -ne 0 ]
+    then
+      echo "Adding ppa:$i"
+        echo '$i' | sudo tee -a /etc/apt/sources.list
+    else
+      echo "ppa:$i already exists"
+    fi
+  done
 }
 
 function certbot_install(){
     # install certbot
     cd $HOME && wget https://dl.eff.org/certbot-auto
-    certbot_dir="/usr/bin/"
-    certbot_name="certbot-auto"
     sudo chown root $HOME/$certbot_name
     sudo chmod 0755 $HOME/$certbot_name
     sudo mv $HOME/$certbot_name $certbot_dir
@@ -35,10 +49,10 @@ function certbot_install(){
 }
 
 function install(){
-    sudo nginx -v
+    sudo /usr/sbin/nginx -v
     if [ $? -eq 0 ]
     then
-        sudo certbot-auto --version
+        sudo ./$certbot_dir/$certbot_name --version
         if [ $? -eq 0 ]
         then
             echo "Nginx and certbot installed"
@@ -47,8 +61,7 @@ function install(){
         fi
     else
         nginx_install
-        #TODO
-        echo "Please rerun"
+        install
     fi
 }
 
