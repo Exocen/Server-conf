@@ -15,13 +15,6 @@ server {
     ssl_session_cache shared:MozSSL:10m;  # about 40000 sessions
     ssl_session_tickets off;
 
-    error_page 404 /error.html;
-
-    location /error.html {
-        root /var/www/html/;
-        internal;
-    }
-
     # modern configuration
     ssl_protocols TLSv1.3;
     ssl_prefer_server_ciphers off;
