@@ -18,7 +18,10 @@ function nginx_install(){
         add_ppa 'deb-src http://nginx.org/packages/mainline/debian/ $OS nginx'
         sudo apt update
         sudo apt install nginx
+    else
+        echo "Need $OS OS"
     fi
+
 }
 
 add_ppa() {
@@ -61,7 +64,6 @@ function install(){
         fi
     else
         nginx_install
-        install
     fi
 }
 
