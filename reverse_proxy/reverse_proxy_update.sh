@@ -11,11 +11,11 @@ if [ $# -eq 1 ]
 then
     mkdir -p $LOG_DIR
     {
-        rm $TMP
+        rm -f $TMP
         cp $LOCAL/nginx_default $TMP
         IP=`curl -s ipinfo.io/ip`
         sed -i 's/DESTINATION/'$IP'/g' $TMP
-        DIFF=`diff -q /tmp/default  <(ssh $1 cat default.conf)`
+        DIFF=`diff -q $TMP <(ssh $1 cat default.conf)`
         if [ "$DIFF" != "" ]; then
             scp -q $TMP $1:"default.conf"
             ssh $1 sudo systemctl restart nginx
