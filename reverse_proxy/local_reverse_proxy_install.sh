@@ -45,7 +45,7 @@ function certbot_install(){
     sudo mv $HOME/$certbot_name $certbot_dir
 
     # get certifs
-    sudo ./$certbot_dir/$certbot_name -d $1
+    sudo ./$certbot_dir/$certbot_name certonly --standalone -d HOSTNAME
     sudo rm /etc/nginx/conf.d/default.conf
     sudo ln -s $HOME/default /etc/nginx/conf.d/default.conf
 
